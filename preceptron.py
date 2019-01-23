@@ -16,7 +16,7 @@ class Perceptron:
                 p= self.step(np.dot(x, self.W))
                 if p!= target:
                     error = p-target
-                    self.W =-self.alpha *error * x
+                    self.W +=-self.alpha *error * x
     
     def predict(self, X, addBias=True):
         X = np.atleast_2d(X)
