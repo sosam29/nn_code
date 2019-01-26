@@ -1,7 +1,7 @@
 import numpy as np 
 
 class Perceptron:
-    
+#adding comment to test from big box    
     def __init__(self, N, alpha=0.1):
         self.W = np.random.randn(N+1) / np.sqrt(N)
         self.alpha = alpha
