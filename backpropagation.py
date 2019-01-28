@@ -14,7 +14,7 @@ def initialize_nn( n_input, n_hidden, n_output):
 def activate(weights, inputs):
     activation = weights[-1]
     for i in range(len(weights)-1):
-        activation += weights[i]-inputs[i]
+        activation += weights[i]*inputs[i]
     return activation
 
 def transfer(activation):
@@ -48,7 +48,7 @@ def backward_propagate_error(network, expected):
                     error += (neuron['weights'][j]* neuron['delta'])
                 errors.append(error)
         else:
-            for j in range(len(layor)):
+            for j in range(len(layer)):
                 neuron = layer[j]
                 errors.append(expected[j]- neuron['output'])
         for j in range(len(layer)):
@@ -68,7 +68,7 @@ def update_weights(network, row, l_rate):
 
 
 def train_network( network, train, l_rate, n_epoch, n_outputs):
-    for epoch in n_epoch:
+    for epoch in range(n_epoch):
         sum_error = 0
         for row in train:
             outputs = forward_porpagation(network, row)
@@ -77,7 +77,7 @@ def train_network( network, train, l_rate, n_epoch, n_outputs):
             sum_error += sum([(expected[i] - outputs[i])**2 for i in range(len(expected))])
             backward_propagate_error(network, expected)
             update_weights(network, row, l_rate)
-        print('> epoch =%d, l_rate =%d, error= %.3f'% (epoch, l_rate, sum_error))
+        print('> epoch =%d, l_rate =%.3f, error= %.3f'% (epoch, l_rate, sum_error))
         
 
 seed(1)
@@ -93,7 +93,7 @@ dataset = [[2.7810836,2.550537003,0],
 	[7.673756466,3.508563011,1]]
 n_inputs= len(dataset[0]) -1
 n_outputs = len(set([row[-1] for row in dataset])) 
-network = initialize_nn(n_inputs, 2, n_outputs )
+network = initialize_nn(n_inputs, 3, n_outputs )
 train_network(network, dataset, 0.5, 20, n_outputs)
 
 for layer in network:
