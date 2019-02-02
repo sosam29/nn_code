@@ -5,13 +5,17 @@ from keras.models import Sequential
 from keras.optimizers import SGD
 from sklearn.metrics import classification_report
 from sklearn import datasets
+from tensorflow.examples.tutorials.mnist import input_data
 import matplotlib.pyplot as plt 
 import numpy as np 
 
 print("[INFO]  loading full nmnsit dataset...")
 
 dataset = datasets.fetch_mldata("MNIST Original")
+# X, y = input_data.read_data_sets('MNIST_data', one_hot=True)
+# X, y = datasets.fetch_openml('mnist_784', version=1, return_X_y=True)
 
+# print('hi there')
 data = dataset.data.astype('float')/255.0
 (trainX, testX, trainY, testY)= train_test_split(data, dataset.target, test_ratio=0.25, random_state=42)
 
