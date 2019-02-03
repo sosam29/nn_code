@@ -10,12 +10,16 @@ import matplotlib.pyplot as plt
 import numpy as np 
 from mnist import MNIST
 from sklearn.preprocessing import OneHotEncoder
+import pandas as pd
 
 print("[INFO]  loading full nmnsit dataset...")
 
 mndata = MNIST('/Users/samuelsonawane/Downloads/ML_TensorFlow/mnist_data_full/samples')
 trainX, trainY = mndata.load_training()
 testX, testY = mndata.load_testing()
+
+X = trainX +  testX
+y=  trainY+ testY
 #dataset = datasets.fetch_mldata("MNIST Original")
 
 # X, y = input_data.read_data_sets('MNIST_data', one_hot=True)
@@ -23,12 +27,12 @@ testX, testY = mndata.load_testing()
 
 # print('hi there')
 # data = dataset.data.astype('float')/255.0
-# (trainX, testX, trainY, testY)= train_test_split(data, dataset.target, test_ratio=0.25, random_state=42)
+(trainX, testX, trainY, testY)= train_test_split(X, y, test_size=0.25, random_state=42)
 
 lb = LabelBinarizer()
 enc = OneHotEncoder(handle_unknown='ignore')
 
-trainY= enc.fit_transform(trainY.reshape(-1, 1))
+trainY= enc.fit_transform(trainY)
 testY = enc.fit(testY)
 # print(type(trainY)) array.array
 # trainY = lb.fit_transform(trainY)
