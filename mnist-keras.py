@@ -8,20 +8,31 @@ from sklearn import datasets
 from tensorflow.examples.tutorials.mnist import input_data
 import matplotlib.pyplot as plt 
 import numpy as np 
+from mnist import MNIST
+from sklearn.preprocessing import OneHotEncoder
 
 print("[INFO]  loading full nmnsit dataset...")
 
-dataset = datasets.fetch_mldata("MNIST Original")
+mndata = MNIST('/Users/samuelsonawane/Downloads/ML_TensorFlow/mnist_data_full/samples')
+trainX, trainY = mndata.load_training()
+testX, testY = mndata.load_testing()
+#dataset = datasets.fetch_mldata("MNIST Original")
+
 # X, y = input_data.read_data_sets('MNIST_data', one_hot=True)
 # X, y = datasets.fetch_openml('mnist_784', version=1, return_X_y=True)
 
 # print('hi there')
-data = dataset.data.astype('float')/255.0
-(trainX, testX, trainY, testY)= train_test_split(data, dataset.target, test_ratio=0.25, random_state=42)
+# data = dataset.data.astype('float')/255.0
+# (trainX, testX, trainY, testY)= train_test_split(data, dataset.target, test_ratio=0.25, random_state=42)
 
 lb = LabelBinarizer()
-trainY = lb.fit_transform(trainY)
-testY = lb.transform(testY)
+enc = OneHotEncoder(handle_unknown='ignore')
+
+trainY= enc.fit_transform(trainY.reshape(-1, 1))
+testY = enc.fit(testY)
+# print(type(trainY)) array.array
+# trainY = lb.fit_transform(trainY)
+# testY = lb.transform(testY)
 
 
 model = Sequential()
