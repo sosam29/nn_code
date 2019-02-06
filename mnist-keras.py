@@ -15,11 +15,11 @@ import pandas as pd
 print("[INFO]  loading full nmnsit dataset...")
 
 mndata = MNIST('/Users/samuelsonawane/Downloads/ML_TensorFlow/mnist_data_full/samples')
-trainX, trainY = mndata.load_training()
-testX, testY = mndata.load_testing()
+X1, y1 = mndata.load_training()
+X2, y2 = mndata.load_testing()
 
-X = trainX +  testX
-y=  trainY+ testY
+X = X1[0:6] +  X2[0:6]
+y = y1 [0:6]+  y2[0:6]
 #dataset = datasets.fetch_mldata("MNIST Original")
 
 # X, y = input_data.read_data_sets('MNIST_data', one_hot=True)
@@ -30,23 +30,21 @@ y=  trainY+ testY
 (trainX, testX, trainY, testY)= train_test_split(X, y, test_size=0.25, random_state=42)
 
 lb = LabelBinarizer()
-enc = OneHotEncoder(handle_unknown='ignore')
-
-trainY= enc.fit_transform(trainY)
-testY = enc.fit(testY)
-# print(type(trainY)) array.array
-# trainY = lb.fit_transform(trainY)
-# testY = lb.transform(testY)
+# enc = OneHotEncoder(handle_unknown='ignore')
+# trainY = np.asarray(trainY).reshape(-1,)
+trainY= lb.fit_transform(trainY)
+# testY = lb.asarray(testY).reshape(-1,1)
+testY = lb.transform(testY)
 
 
 model = Sequential()
-model.add(Dense(256, inout_shape=(786,), activation='sigmoid'))
+model.add(Dense(256, input_shape=(786,), activation='sigmoid'))
 model.add(Dense(128, activation='sigmoid'))
 model.add(Dense(10, activation='softmax'))
 
 sgd = SGD(0.01)
-model.compile(loss='categorical_crossentroy', optimizer=sgd, metrics=['accuracy'])
-H = model.fit(trainX, trainY, validation_data=(testX, testY), epochs=100, batch_size=128)
+model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+H = model.fit(trainX, trainY validation_data=(testX, testY), epochs=100, batch_size=128)
 
 print("[INFO] evaluating network.....")
 
