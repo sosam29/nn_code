@@ -4,7 +4,7 @@ from numba import vectorize
 
 @vectorize
 def pow(a, b):
-    return a**b
+    return a**b 
 
 def main():
     vec_size = 100000000
