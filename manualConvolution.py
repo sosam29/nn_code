@@ -30,7 +30,7 @@ emboss = np.array(([-2,-1,0],[-1,1,1],[0,1,2]), dtype='int')
 
 kerenelBank = (("smallblue", smallblur),("bigblur", bigblur),("sharpen", sharpen),("laplacean", laplacean),("sobel_x", sobelX),("sobel_y", sobelY), ("emboss", emboss))
 
-image = cv2.imread(r"C:\\Users\\Sam\\Downloads\\dlib\\examples\\johns\\John_Schneider\\000325_00925954.jpg")
+image = cv2.imread(r"sam052018.jpg")
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 for (kernelName, K) in kerenelBank:
