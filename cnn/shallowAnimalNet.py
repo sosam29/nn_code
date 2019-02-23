@@ -5,7 +5,7 @@ import image2arrpreprocessor
 from shallownn import ShallowNN
 from keras.optimizers import SGD
 from imutils import paths
-import matplotlib.pyplot as plt 
+# import matplotlib.pyplot as plt 
 import numpy as np
 from SimpleDatasetLoader import SimpleDatasetLoader
 from SimplePreprocessor import SimplePreprocessor

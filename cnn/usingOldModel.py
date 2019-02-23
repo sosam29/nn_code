@@ -5,9 +5,12 @@ from keras.optimizers import SGD
 from keras.datasets import cifar10
 import matplotlib.pyplot as plt 
 import numpy as np 
+from imutils import paths
 from keras.models import load_model
 
 # print()
+
+imagePath = np.array(list(paths.list_images()))
 ((trainX, trainY),(testX, testY)) = cifar10.load_data()
 trainX = trainX.astype('float')/255.0
 testX = testX.astype('float')/255.0
