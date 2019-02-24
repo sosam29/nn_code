@@ -8,5 +8,5 @@ class SimplePreprocessor():
         self.inter =inter
 
     def preprocess(self, image):
-        return cv2.resize(image, (image.width, image.height), interpolation=self.inter)
+        return cv2.resize(image, (self.width, self.height), interpolation=self.inter)
 

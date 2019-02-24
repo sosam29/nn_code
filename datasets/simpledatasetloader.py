@@ -16,12 +16,13 @@ class SimpleDatasetLoader:
 
         for(i, imagepath) in enumerate(imagepaths):
             image = cv2.imread(imagepath)
+# labels are nothing but folers in the datasets (last but one part)
             label= imagepath.split(os.path.sep)[-2]
-
+# Process image based on arrays of preprocessor so as to make it processeable for next steps
             if self.preprocessors is not None:
                 for p in self.preprocessors:
-                    p.preprocess(image)
-            
+                    image = p.preprocess(image)
+# addung image to data and label list            
             data.append(image)
             labels.append(label)
 
